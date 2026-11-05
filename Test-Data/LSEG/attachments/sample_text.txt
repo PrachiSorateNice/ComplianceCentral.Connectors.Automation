@@ -1,0 +1,2 @@
+LSEG Messenger automation sample attachment.
+Plain-text document used for attachment-sharing test scenarios.
