@@ -155,8 +155,8 @@ export class LsegMessenger {
     await page.waitForTimeout(800);
   }
 
-  /** Shares a file from LSEG_ATTACHMENTS_DIR in the open conversation. */
-  async shareAttachment(fileName: string): Promise<void> {
+  /** Shares a file from LSEG_ATTACHMENTS_DIR in the open conversation (raise `uploadWaitMs` for large files). */
+  async shareAttachment(fileName: string, uploadWaitMs = 2000): Promise<void> {
     const { page } = this;
     const file = attachmentPath(fileName);
 
@@ -179,7 +179,7 @@ export class LsegMessenger {
     } catch {
       await page.locator(SEL.fileInput).first().setInputFiles(file);
     }
-    await page.waitForTimeout(2000);
+    await page.waitForTimeout(uploadWaitMs);
 
     await page.locator(SEL.messageInput).first().press('Enter');
     await page.waitForTimeout(4000);
